@@ -113,7 +113,7 @@ class ProductSearchControllerTest {
                 .perform(
                         get(getUri()).contentType(MediaType.APPLICATION_JSON)
                                 .param("q", "prod B")
-                                .param("min_price", "100")
+                                .param("min_price", "146")
                                 .param("max_price", "1000")
                 )
                 .andExpect(status().isOk())
