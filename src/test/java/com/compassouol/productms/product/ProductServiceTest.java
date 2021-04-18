@@ -2,6 +2,7 @@ package com.compassouol.productms.product;
 
 import com.compassouol.productms.factory.ProductFactory;
 import com.compassouol.productms.model.Product;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,9 +27,15 @@ class ProductServiceTest {
     @Autowired
     private ProductService productService;
 
+    private Product genericProduct;
+
+    @BeforeEach
+    public void setUp() {
+        genericProduct = ProductFactory.createGenericProduct();
+    }
+
     @Test
     public void testFind_whenExistingId_thanReturnProduct() {
-        Product genericProduct = ProductFactory.createGenericProduct();
         genericProduct.setId("id");
         when(productRepository.findById(anyString())).thenReturn(Optional.of(genericProduct));
 
@@ -66,7 +73,6 @@ class ProductServiceTest {
 
     @Test
     public void testCreate_whenSuccessfullyCreates_thanReturnNewProduct() {
-        Product genericProduct = ProductFactory.createGenericProduct();
         when(productRepository.save(any())).thenReturn(genericProduct);
 
         Product product = productService.create(genericProduct);
@@ -77,7 +83,6 @@ class ProductServiceTest {
     @Test
     public void testUpdate_whenProductExists_thanReturnProduct() {
         String productId = "id";
-        Product genericProduct = ProductFactory.createGenericProduct();
         genericProduct.setId(productId);
 
         when(productRepository.existsById(anyString())).thenReturn(true);
@@ -98,7 +103,6 @@ class ProductServiceTest {
     @Test
     public void testDelete_whenProductExists_thanDeleteProduct() {
         String productId = "id";
-        Product genericProduct = ProductFactory.createGenericProduct();
         genericProduct.setId(productId);
 
         when(productRepository.findById(anyString())).thenReturn(Optional.of(genericProduct));
