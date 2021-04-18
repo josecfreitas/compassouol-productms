@@ -3,6 +3,7 @@ package com.compassouol.productms.product;
 import com.compassouol.productms.model.Product;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -56,5 +57,9 @@ public class ProductService {
         if (!productRepository.existsById(id)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, NO_PRODUCT_FOUND_MESSAGE);
         }
+    }
+
+    public List<Product> list(Specification<Product> specification) {
+        return productRepository.findAll(specification);
     }
 }

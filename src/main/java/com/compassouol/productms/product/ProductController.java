@@ -8,7 +8,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("products")
@@ -24,7 +23,8 @@ public class ProductController {
 
     @GetMapping
     public List<ProductResponse> list() {
-        return convertToProductResponseList(productService.list());
+        return new ProductListMapper<ProductResponse>(productService.list())
+                .map(ProductResponse::new);
     }
 
     @PostMapping
@@ -48,12 +48,5 @@ public class ProductController {
     public ResponseEntity<Void> delete(@PathVariable String id) {
         productService.delete(id);
         return ResponseEntity.ok().build();
-    }
-
-    private List<ProductResponse> convertToProductResponseList(List<Product> productList) {
-        return productList
-                .stream()
-                .map(ProductResponse::new)
-                .collect(Collectors.toList());
     }
 }
