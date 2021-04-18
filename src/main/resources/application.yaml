@@ -2,5 +2,7 @@ server:
   port: 9999
 
 spring:
+  jackson:
+    property-naming-strategy: SNAKE_CASE
   jpa:
     open-in-view: false
