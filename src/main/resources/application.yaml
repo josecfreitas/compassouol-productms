@@ -1,2 +1,6 @@
 server:
   port: 9999
+
+spring:
+  jpa:
+    open-in-view: false
