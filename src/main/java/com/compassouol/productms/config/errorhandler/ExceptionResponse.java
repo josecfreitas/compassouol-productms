@@ -1,5 +1,6 @@
 package com.compassouol.productms.config.errorhandler;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -7,6 +8,7 @@ import lombok.Getter;
 @Getter
 public class ExceptionResponse {
 
-    private final int status_code;
+    @JsonProperty("status_code")
+    private final int statusCode;
     private final String message;
 }
