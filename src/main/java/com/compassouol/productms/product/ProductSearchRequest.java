@@ -12,8 +12,10 @@ import java.util.ArrayList;
 public class ProductSearchRequest implements Specification<Product> {
 
     private String q;
-    private BigDecimal minPrice;
-    private BigDecimal maxPrice;
+    // TODO find a way to bind snake_case get parameter to camel case parameter,
+    //  then this properties can be changed again to camel case
+    private BigDecimal min_price;
+    private BigDecimal max_price;
 
     @Override
     public Predicate toPredicate(Root<Product> root, CriteriaQuery<?> criteriaQuery, CriteriaBuilder criteriaBuilder) {
@@ -38,14 +40,14 @@ public class ProductSearchRequest implements Specification<Product> {
     }
 
     private void addMinPriceToPredicate(Root<Product> root, CriteriaBuilder criteriaBuilder, ArrayList<Predicate> predicates) {
-        if (minPrice != null) {
-            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("price"), minPrice));
+        if (min_price != null) {
+            predicates.add(criteriaBuilder.greaterThanOrEqualTo(root.get("price"), min_price));
         }
     }
 
     private void addMaxPriceToPredicate(Root<Product> root, CriteriaBuilder criteriaBuilder, ArrayList<Predicate> predicates) {
-        if (maxPrice != null) {
-            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("price"), maxPrice));
+        if (max_price != null) {
+            predicates.add(criteriaBuilder.lessThanOrEqualTo(root.get("price"), max_price));
         }
     }
 

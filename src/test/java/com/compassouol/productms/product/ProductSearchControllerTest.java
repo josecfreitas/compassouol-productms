@@ -86,7 +86,7 @@ class ProductSearchControllerTest {
     @Test
     public void testList_whenWithMinPriceParameter_thanReturnFilteredProducts() throws Exception {
         mockMvc
-                .perform(get(getUri()).contentType(MediaType.APPLICATION_JSON).param("minPrice", "100.555555"))
+                .perform(get(getUri()).contentType(MediaType.APPLICATION_JSON).param("min_price", "100.555555"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
@@ -94,7 +94,7 @@ class ProductSearchControllerTest {
     @Test
     public void testList_whenWithMaxPriceParameter_thanReturnFilteredProducts() throws Exception {
         mockMvc
-                .perform(get(getUri()).contentType(MediaType.APPLICATION_JSON).param("maxPrice", "100.555555"))
+                .perform(get(getUri()).contentType(MediaType.APPLICATION_JSON).param("max_price", "100.555555"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)));
     }
@@ -102,7 +102,7 @@ class ProductSearchControllerTest {
     @Test
     public void testList_whenFilterWithoutResults_thanReturnEmptyList() throws Exception {
         mockMvc
-                .perform(get(getUri()).contentType(MediaType.APPLICATION_JSON).param("maxPrice", "1"))
+                .perform(get(getUri()).contentType(MediaType.APPLICATION_JSON).param("max_price", "1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(0)));
     }
@@ -113,8 +113,8 @@ class ProductSearchControllerTest {
                 .perform(
                         get(getUri()).contentType(MediaType.APPLICATION_JSON)
                                 .param("q", "prod B")
-                                .param("minPrice", "100")
-                                .param("maxPrice", "1000")
+                                .param("min_price", "100")
+                                .param("max_price", "1000")
                 )
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(1)))
